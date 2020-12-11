@@ -1,0 +1,121 @@
+Post===controlller
+--------------------------------------------------------------
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Post extends CI_Controller {
+		public function __construct()
+	{
+			parent::__construct();
+			
+	}
+
+	/**
+	 * Index Page for this controller.
+	 *
+	 * Maps to the following URL
+	 * 		http://example.com/index.php/welcome
+	 *	- or -
+	 * 		http://example.com/index.php/welcome/index
+	 *	- or -
+	 * Since this controller is set as the default controller in
+	 * config/routes.php, it's displayed at http://example.com/
+	 *
+	 * So any other public methods not prefixed with an underscore will
+	 * map to /index.php/welcome/<method_name>
+	 * @see https://codeigniter.com/user_guide/general/urls.html
+	 */
+	 
+	 
+	public function index()
+	{
+		$data['posts']=$this->Post_M->get_posts();
+		$this->load->view('postview',$data);
+	}
+}
+
+
+
+Post_M ===model
+-------------------------------------------------------------------------------------------------------------------------------------------
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Post_M extends CI_Model {
+
+	/**
+	 * Index Page for this controller.
+	 *
+	 * Maps to the following URL
+	 * 		http://example.com/index.php/welcome
+	 *	- or -
+	 * 		http://example.com/index.php/welcome/index
+	 *	- or -
+	 * Since this controller is set as the default controller in
+	 * config/routes.php, it's displayed at http://example.com/
+	 *
+	 * So any other public methods not prefixed with an underscore will
+	 * map to /index.php/welcome/<method_name>
+	 * @see https://codeigniter.com/user_guide/general/urls.html
+	 */
+	 
+	 public function __construct()
+	{
+			parent::__construct();
+	}		
+	public function get_posts()
+	{
+		$this->db->from('users');
+		$query=$this->db->get();
+		return $query->result();
+		
+	}
+}
+
+
+postview==========view
+-------------------------------------------------------------------------------------------------------------------------------------
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?><!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Welcome to CodeIgniter</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+	<style type="text/css">
+
+
+	</style>
+</head>
+<body>
+
+<div id="container">
+	<h1>Welcome to home!</h1>
+
+	<table class="table table-sm table-dark">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">username</th>
+      <th scope="col">email</th>
+      <th scope="col">password</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach($posts as $post){?>
+    <tr>
+      <td scope="row"><?php echo $post->id;?></td>
+      <td><?php echo $post->username;?></td>
+      <td><?php echo $post->email;?></td>
+      <td><?php echo $post->password;?></td>
+    </tr>
+  <?php  } ?>
+  </tbody>
+</table>
+
+</div>
+
+</body>
+</html>
