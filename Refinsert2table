@@ -1,0 +1,5 @@
+Model
+$res = this-db-insert(tablelogin,$datalogin)
+$lastid= this- db- insert_id();
+$dataprofile['uid'] = lastid
+res= this db insert(tablepr,$dataprofile)
